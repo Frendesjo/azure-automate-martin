@@ -18,6 +18,9 @@ $string.GetType()
 
 foreach ($card in $Output){
     $string = $string + "$($card.suit[0])" + "$($card.value)" + ","
-    #exit
 }
-return $string
+
+#remove last character 
+$string = $string.Substring(0,$string.Length-1)
+
+Write-Output $string
