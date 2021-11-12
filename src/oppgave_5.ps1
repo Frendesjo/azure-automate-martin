@@ -1,7 +1,7 @@
 param (
     [Parameter ()]
     [String]
-    $url = "http://nav-deckofcards.herokuapp.com/shuffle"
+    $UrlKortstokk  = "http://nav-deckofcards.herokuapp.com/shuffle"
 )
 
 $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
@@ -25,30 +25,33 @@ $string = $string.Substring(0,$string.Length-1)
 
 ####Oppgave 5
 
+function SumCards {
 
-$Sum = [int]"0"
-$Sum.GetType()
+    #[OutputType([int])]
+
+    $Sum = [int]"0"
+    #$Sum.GetType()
 
 
-foreach ($card in $Output){
+    foreach ($card in $Output){
 
-    $CardValue = $card.value
+        $CardValue = $card.value
 
-    if (($CardValue -eq "K") -or ($CardValue -eq "Q") -or ($CardValue -eq "J")) {
-        $CardValue = 10
+        if (($CardValue -eq "K") -or ($CardValue -eq "Q") -or ($CardValue -eq "J")) {
+            $CardValue = 10
+        }
+        elseif ($CardValue -eq "A") {
+            $CardValue = 11
+        }
+        else {
+        #switch to integer
+        $CardValue = [int]$CardValue
+        }
+
+        $Sum = $Sum + $CardValue
     }
-    elseif ($CardValue -eq "A") {
-        $CardValue = 11
-    }
-
-    #switch to integer
-    $CardValue = [int]$CardValue
-
-    $Sum = $Sum + $CardValue
+    return $Sum
 }
 
-
-
-
 Write-host "Kortstokk:" $string
-Write-host "Poengsum:" $Sum
+Write-Output "Poengsum: $(SumCards)"
