@@ -1,4 +1,10 @@
-$webRequest = Invoke-WebRequest -Uri "http://nav-deckofcards.herokuapp.com/shuffle"
+param (
+    [Parameter ()]
+    [String]
+    $url = ""
+)
+
+$webRequest = Invoke-WebRequest -Uri $url
 
 $outputJSON = $webRequest.Content
 
