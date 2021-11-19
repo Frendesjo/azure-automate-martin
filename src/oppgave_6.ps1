@@ -11,7 +11,7 @@ $webRequest = Invoke-WebRequest -Uri $url
 
 $outputJSON = $webRequest.Content
 
-$Output = ConvertFrom-Json -InputObject $outputJSON
+$cards = ConvertFrom-Json -InputObject $outputJSON
 
 
 <#region Gammel utskritft versjon. byttet til funksjon lenger ned
@@ -29,15 +29,15 @@ function Cardprint {
     param (
         [Parameter()]
         [Object[]]
-        $Output
+        $Cards
     )
     #Skrive ut kortstokk
-    $cards = @()
-    foreach ($card in $Output){
-        $cards += ($card.suit[0] + $card.value)
+    $Deck = @()
+    foreach ($card in $Cards){
+        $Deck += ($card.suit[0] + $card.value)
         #$string = $string + "$($card.suit[0])" + "$($card.value)"
     }
-    $cards
+    $Deck
 }
 
 
@@ -72,12 +72,21 @@ function SumCards {
     return $Sum
 }
 
-Write-host "Kortstokk: $(Cardprint($Output))"
+Write-host "Kortstokk: $(Cardprint($Cards))"
 write-host "Poengsum: $(SumCards)"
 
 
 
 #### Oppgave 6
 
+$meg = $Cards[0..1]
 
-$meg = ""
+$Cards = $Cards[2..$Cards.Length]
+
+$Magnus = $Cards[0..1]
+
+$Cards = $Cards[2..$Cards.Length]
+
+Write-Host "Meg: $(Cardprint($meg))"
+Write-Host "Magnus $(Cardprint($Magnus))"
+Write-host "Kortstokk: $(Cardprint($Cards))"
