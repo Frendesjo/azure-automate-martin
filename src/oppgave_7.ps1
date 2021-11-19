@@ -1,13 +1,13 @@
 param (
     [Parameter ()]
     [String]
-    $Kortstokk  = "http://nav-deckofcards.herokuapp.com/shuffle"
+    $Kortstokk  = "https://azure-gvs-test-cases.azurewebsites.net/api/vinnerMeg"
 )
 
 $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
 
 
-$webRequest = Invoke-WebRequest -Uri 'https://azure-gvs-test-cases.azurewebsites.net/api/vinnerMeg'
+$webRequest = Invoke-WebRequest -Uri $Kortstokk
 
 $outputJSON = $webRequest.Content
 
@@ -81,6 +81,7 @@ function SumCards {
 
 Write-host "Kortstokk: $(Cardprint($Cards))"
 write-host "Poengsum: $(SumCards($Cards))"
+write-host ""
 
 $meg = $Cards[0..1]
 
@@ -96,9 +97,18 @@ function Result {
         [Object[]]
         $kortMagnus
     )
-    
-    Write-Host "Magnus | $(Sumcards($kortMagnus))"
-    Write-Host "Meg | $(Sumcards($kortmeg))"
+    Write-Host "Vinner:" $Vinner
+    Write-Host "Magnus | $(Sumcards($kortMagnus)) | $(Cardprint($kortMagnus))"
+    Write-Host "Meg | $(Sumcards($kortmeg)) | $(Cardprint($kortmeg))"
 }
 
-Result -kortMagnus $Magnus -kortmeg $meg
+#Result -kortMagnus $Magnus -kortmeg $meg
+
+$blackjack = 21
+
+if ($(Sumcards($meg)) -eq $blackjack) {
+    Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Meg"
+}
+else {
+    Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Magnus"
+}
