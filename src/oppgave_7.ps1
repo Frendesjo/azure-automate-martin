@@ -7,7 +7,7 @@ param (
 $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
 
 
-$webRequest = Invoke-WebRequest -Uri $Kortstokk
+$webRequest = Invoke-WebRequest -Uri 'https://azure-gvs-test-cases.azurewebsites.net/api/vinnerMeg'
 
 $outputJSON = $webRequest.Content
 
@@ -80,4 +80,25 @@ function SumCards {
 #### Oppgave 7
 
 Write-host "Kortstokk: $(Cardprint($Cards))"
-write-host "Poengsum: $(SumCards($cards))"
+write-host "Poengsum: $(SumCards($Cards))"
+
+$meg = $Cards[0..1]
+
+$Magnus = $Cards[2..$Cards.Length]
+
+
+function Result {
+    param (
+        [string]
+        $Vinner,
+        [object[]]
+        $kortmeg,
+        [Object[]]
+        $kortMagnus
+    )
+    
+    Write-Host "Magnus | $(Sumcards($kortMagnus))"
+    Write-Host "Meg | $(Sumcards($kortmeg))"
+}
+
+Result -kortMagnus $Magnus -kortmeg $meg
