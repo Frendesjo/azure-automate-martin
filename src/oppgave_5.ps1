@@ -23,7 +23,7 @@ foreach ($card in $Output){
 $string = $string.Substring(0,$string.Length-1)
 
 
-#####Oppgave 5
+######Oppgave 5
 
 function SumCards {
 
