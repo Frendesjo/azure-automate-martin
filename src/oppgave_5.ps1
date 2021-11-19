@@ -1,7 +1,7 @@
 param (
     [Parameter ()]
     [String]
-    $UrlKortstokk  = "http://nav-deckofcards.herokuapp.com/shuffle"
+    $url  = "http://nav-deckofcards.herokuapp.com/shuffle"
 )
 
 $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
