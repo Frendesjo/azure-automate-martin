@@ -1,13 +1,13 @@
 param (
     [Parameter ()]
     [String]
-    $url  = "http://nav-deckofcards.herokuapp.com/shuffle"
+    $Kortstokk  = "http://nav-deckofcards.herokuapp.com/shuffle"
 )
 
 $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
 
 
-$webRequest = Invoke-WebRequest -Uri $url
+$webRequest = Invoke-WebRequest -Uri $Kortstokk
 
 $outputJSON = $webRequest.Content
 
@@ -31,15 +31,15 @@ function Cardprint {
 ######Oppgave 5
 
 function SumCards {
+    param (
+        [Parameter()]
+        [Object[]]
+        $Cards
+    )
 
-    #[OutputType([int])]
-
-    $Sum = [int]"0"
+    $Sum = 0
     
-    #$Sum.GetType()
-
-
-    foreach ($card in $Output){
+    foreach ($card in $Cards){
 
         $CardValue = $card.value
 
@@ -59,21 +59,25 @@ function SumCards {
     return $Sum
 }
 
-Write-host "Kortstokk: $(Cardprint($Cards))"
-write-host "Poengsum: $(SumCards)"
+# Write-host "Kortstokk: $(Cardprint($Cards))"
+# write-host "Poengsum: $(SumCards)"
 
 
 
 #### Oppgave 6
 
-$meg = $Cards[0..1]
+# $meg = $Cards[0..1]
+# $Cards = $Cards[2..$Cards.Length]
+# $Magnus = $Cards[0..1]
+# $Cards = $Cards[2..$Cards.Length]
 
-$Cards = $Cards[2..$Cards.Length]
+# Write-Host "Meg: $(Cardprint($meg))"
+# Write-Host "Magnus $(Cardprint($Magnus))"
+# Write-host "Kortstokk: $(Cardprint($Cards))"
 
-$Magnus = $Cards[0..1]
 
-$Cards = $Cards[2..$Cards.Length]
 
-Write-Host "Meg: $(Cardprint($meg))"
-Write-Host "Magnus $(Cardprint($Magnus))"
+#### Oppgave 7
+
 Write-host "Kortstokk: $(Cardprint($Cards))"
+write-host "Poengsum: $(SumCards($cards))"
