@@ -83,10 +83,10 @@ Write-host "Kortstokk: $(Cardprint($Cards))"
 write-host "Poengsum: $(SumCards($Cards))"
 write-host ""
 
+
+
 $meg = $Cards[0..1]
-
 $Magnus = $Cards[2..$Cards.Length]
-
 
 function Result {
     param (
@@ -105,10 +105,19 @@ function Result {
 #Result -kortMagnus $Magnus -kortmeg $meg
 
 $blackjack = 21
+$draw = 42
 
-if ($(Sumcards($meg)) -eq $blackjack) {
-    Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Meg"
+#kjører hele "gamle" if i en ny if for å sjekke draw først
+
+if ($(Sumcards($cards)) -eq $draw) {
+    Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Draw"
 }
-else {
-    Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Magnus"
+else
+{
+    if ($(Sumcards($meg)) -eq $blackjack) {
+        Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Meg"
+    }
+    else {
+        Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Magnus"
+    }
 }
