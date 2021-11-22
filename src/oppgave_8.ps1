@@ -1,7 +1,7 @@
 param (
     [Parameter ()]
     [String]
-    $Kortstokk  = "https://azure-gvs-test-cases.azurewebsites.net/api/vinnerMeg"
+    $Kortstokk  = "https://azure-gvs-test-cases.azurewebsites.net/api/taperMeg"
 )
 
 $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
@@ -131,4 +131,16 @@ write-host ""
 
 
 $meg = $Cards[0..1]
-$Magnus = $Cards[2..$Cards.Length
+$Magnus = $Cards[2..3]
+
+#begynner på kort 5, array plass 4
+$turn = 4
+
+while (($(Sumcards($meg))) -lt $blackjack){
+    $meg += $cards[$turn]
+    $turn += 1
+}
+
+if ($(Sumcards($meg)) -gt $blackjack){
+    Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Magnus"
+}
