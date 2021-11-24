@@ -199,9 +199,12 @@ while ((($(SumCards($meg))) -lt $blackjack) -and (($(SumCards($Magnus))) -lt $bl
         $meg += $cards[$turn]
         $turn += 1
     }
-    if (($(SumCards($Magnus))) -lt $stopDraw){
+    elseif(($(SumCards($Magnus))) -lt $stopDraw){
         $Magnus += $cards[$turn]
         $turn += 1
+    }
+    else {
+        break
     }
 }
 
