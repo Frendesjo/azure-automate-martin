@@ -80,53 +80,31 @@ Write-host "Kortstokk: $(Cardprint($Cards))"
 Write-host "Poengsum: $(SumCards($Cards))"
 Write-host ""
 
+
 $meg = $Cards[0..1]
 $Magnus = $Cards[2..3]
 
+$cards = $cards[4..$cards.Count]
 
 $blackjack = 21
-$stopDraw = 17
-$turn = 4
 
-while ((($(SumCards($meg))) -lt $blackjack) -and (($(SumCards($Magnus))) -lt $blackjack)){
-    
-    #kjøre test om meg skal trekke
-    if (($(SumCards($meg))) -lt $stopDraw){
-        $meg += $cards[$turn]
-        $turn += 1
-    }
-    elseif(($(SumCards($Magnus))) -lt $stopDraw){
-        $Magnus += $cards[$turn]
-        $turn += 1
-    }
-    else {
-        break
-    }
+
+while (($(SumCards($meg))) -lt 17 ){
+    $meg += $cards[0]
+    $Cards = $Cards[1..$Cards.Count]
 }
 
-
-$Vinneren = ""
-
-# $SumMeg = 1
-# $SumMagnus = 12
-
-$SumMeg = $(SumCards($meg))
-$SumMagnus = $(SumCards($Magnus))
-
-if (($SumMeg -gt $blackjack) -and ($SumMagnus -gt $blackjack)){
-    $Vinneren = "Ingen, begge over"
-}
-elseif ($SumMeg -eq $SumMagnus){
-    $Vinneren = "Draw"
-}
-elseif ((($SumMeg -gt $SumMagnus) -or ($SumMagnus -gt 22)) -and ($SumMeg -lt 22)) {
-    $Vinneren = "Meg"
-}
-elseif ($SumMagnus -lt 22) {
-    $Vinneren = "Magnus"
+if (($(SumCards($meg))) -gt $blackjack){
+    Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Magnus"
+    exit
 }
 
-#  Write-Host $Vinneren -ForegroundColor Green
+while (($(SumCards($Magnus))) -le ($(SumCards($meg))) ){
+    $Magnus += $cards[0]
+    $Cards = $Cards[1..$Cards.Count]
+}
 
-
-Result -kortmeg $meg -kortMagnus $Magnus -Vinner $Vinneren
+if (($(SumCards($Magnus))) -gt $blackjack){
+    Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Meg"
+    exit
+}
