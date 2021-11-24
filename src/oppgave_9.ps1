@@ -176,8 +176,4 @@ while (($(SumCards($Magnus))) -lt $blackjack ){
     # write-host $testmagnus -ForegroundColor Blue
 }
 
-# if ($(Sumcards($meg)) -lt $blackjack){
-#     Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Meg"
-# }
-
 Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Meg"
