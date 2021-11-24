@@ -108,3 +108,5 @@ if (($(SumCards($Magnus))) -gt $blackjack){
     Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Meg"
     exit
 }
+
+Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Magnus"
