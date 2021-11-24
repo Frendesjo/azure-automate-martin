@@ -105,7 +105,7 @@ function Result {
 #Result -kortMagnus $Magnus -kortmeg $meg
 
 $blackjack = 21
-$draw = 42
+#  $draw = 42
 
 #kjører hele "gamle" if i en ny if for å sjekke draw først
 

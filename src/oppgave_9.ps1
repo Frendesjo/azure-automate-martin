@@ -1,7 +1,7 @@
 param (
     [Parameter ()]
     [String]
-    $Kortstokk  = "https://azure-gvs-test-cases.azurewebsites.net/api/taperMeg"
+    $Kortstokk  = "https://azure-gvs-test-cases.azurewebsites.net/api/taperMagnus"
 )
 
 $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
@@ -105,7 +105,7 @@ function Result {
 #Result -kortMagnus $Magnus -kortmeg $meg
 
 $blackjack = 21
-$draw = 42
+#  $draw = 42
 
 #kjører hele "gamle" if i en ny if for å sjekke draw først
 
@@ -125,9 +125,32 @@ $draw = 42
 
 ##### Oppgave 8
 
-Write-host "Kortstokk: $(Cardprint($Cards))"
-write-host "Poengsum: $(SumCards($Cards))"
-write-host ""
+# Write-host "Kortstokk: $(Cardprint($Cards))"
+# write-host "Poengsum: $(SumCards($Cards))"
+# write-host ""
+
+
+# $meg = $Cards[0..1]
+# $Magnus = $Cards[2..3]
+
+# #begynner på kort 5, array plass 4
+# $turn = 4
+
+# while (($(Sumcards($meg))) -lt $blackjack){
+#     $meg += $cards[$turn]
+#     $turn += 1
+# }
+
+# if ($(Sumcards($meg)) -gt $blackjack){
+#     Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Magnus"
+# }
+
+
+##### Oppgave 9
+
+ Write-host "Kortstokk: $(Cardprint($Cards))"
+ write-host "Poengsum: $(SumCards($Cards))"
+ write-host ""
 
 
 $meg = $Cards[0..1]
@@ -136,15 +159,25 @@ $Magnus = $Cards[2..3]
 #begynner på kort 5, array plass 4
 $turn = 4
 
-while (($(Sumcards($meg))) -lt $blackjack){
+while (($(Sumcards($meg))) -lt 17){
     $meg += $cards[$turn]
     $turn += 1
+
+    # $test = Sumcards($meg)
+    # write-host $test -ForegroundColor Red
 }
 
-if ($(Sumcards($meg)) -gt $blackjack){
-    Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Magnus"
+
+while (($(SumCards($Magnus))) -lt $blackjack ){
+    $Magnus += $cards[$turn]
+    $turn += 1
+
+    # $testmagnus = Sumcards($Magnus)
+    # write-host $testmagnus -ForegroundColor Blue
 }
 
+# if ($(Sumcards($meg)) -lt $blackjack){
+#     Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Meg"
+# }
 
-
-##### Oppgave 9
+Result -kortmeg $meg -kortMagnus $Magnus -Vinner "Meg"
