@@ -31,7 +31,7 @@ jobs:
         with:
             inlinescript: |
               Disconnect-AzAccount -Scope CurrentUser
-              Az logout
-              Az cache purge
-              Az account clear
-            azPSVersion: "latest"
+              az logout
+              az cache purge
+              az account clear
+            azPsVersion: "latest"
