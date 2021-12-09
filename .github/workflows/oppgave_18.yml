@@ -1,0 +1,37 @@
+name: Oppgave 18
+
+on: [ workflow_dispatch ]
+
+
+jobs:
+  jobdelete:
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: ${{ github.workspace }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Login via Az module
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPsSession: true
+
+      - name: Run cleanup script
+        uses: azure/powershell@v1
+        with:
+          inlinescript: ./src/funcApp/cleanup.ps1
+          azPsVersion: "latest"
+
+      - name: Logout from Azure
+        uses: azure/powershell@v1
+        with:
+            inlinescript: |
+              Disconnect-AzAccount -Scope CurrentUser
+              Az logout
+              Az cache purge
+              Az account clear
+            azPSVersion: "latest"
