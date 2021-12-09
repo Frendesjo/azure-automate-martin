@@ -4,7 +4,7 @@ param (
     $Kortstokk  = "http://nav-deckofcards.herokuapp.com/shuffle"
 )
 
-$ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
+#$ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
 
 
 $webRequest = Invoke-WebRequest -Uri $Kortstokk
