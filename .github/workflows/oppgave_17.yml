@@ -27,4 +27,4 @@ jobs:
           modules-to-cache: Az.Storage, Az.Functions, Az.Websites, Az.Resources, Az.Accounts
 
       - name: Deploy Function app
-        run: ./src/funcApp/deploywithbicep.ps1 -firstName "Martin" -ResourceGroupName "martin-workshop-ukjdlxupxgiyi"
+        run: ./src/funcApp/deployWithBicep.ps1 -firstName "Martin" -resourceGroupName "martin-workshop-ukjdlxupxgiyi"
