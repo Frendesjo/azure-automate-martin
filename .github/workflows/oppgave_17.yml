@@ -1,0 +1,30 @@
+name: Oppgave 17
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: ${{ github.workspace }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Login via AZ module
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPsSession: true
+
+      - name: Install and cache Powershell modules
+        uses: potatoqualitee/psmodulecache@v4
+        with:
+          modules-to-cache: Az.Storage, Az.Functions, Az.Websites, Az.Resources, Az.Accounts
+
+      - name: Deploy Function app
+        run: ./src/funcApp/deploywithbicep.ps1 -firstName "Martin" -ResourceGroupName "martin-workshop-ukjdlxupxgiyi"
